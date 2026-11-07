@@ -1,7 +1,7 @@
 {
-  "name": "DARKZONE-MD",
+  "name": "KAYSEUR_MDX",
   "version": "7.0.0",
-  "description": "A WhaTsApp Bot Created By 𝐸𝑅𝐹𝒜𝒩 𝒜𝐻𝑀𝒜𝒟 ",
+  "description": "A WhaTsApp Bot Created By 𝙼𝚁 𝙺𝙸𝙽𝙶 𝙺𝙰𝚈𝚂𝙴𝚄𝚁 𝚃𝙷𝙴 𝙶𝙻𝙸𝚃𝙲𝙷 𝙳𝙴𝚅 ",
   "main": "index.js",
   "engines": {
     "node": ">=20.x",
@@ -9,8 +9,8 @@
   },
   "scripts": {
     "start": "pm2 start index.js --deep-monitoring --attach --name DARKZONE-MD",
-    "stop": "pm2 stop DARKZONE-MD",
-    "restart": "pm2 restart DARKZONE-MD"
+    "stop": "pm2 stop KAYSEUR_MDX",
+    "restart": "pm2 restart KAYSEUR_MDX"
   },
   "dependencies": {
     "@whiskeysockets/baileys": "7.0.0-rc.9",
