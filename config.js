@@ -13,30 +13,30 @@ module.exports = {
     SESSION_ID: process.env.SESSION_ID || "",  // Your bot's session ID (keep it secure)
     PREFIX: getConfig("PREFIX") || ".",  // Command prefix (e.g., "., / ! * - +")
     CHATBOT: getConfig("CHATBOT") || "on", // on/off chat bot 
-    BOT_NAME: process.env.BOT_NAME || getConfig("BOT_NAME") || "DARKZONE-MD",  // Bot's display name
+    BOT_NAME: process.env.BOT_NAME || getConfig("BOT_NAME") || "KAYSEUR-MD",  // Bot's display name
     MODE: getConfig("MODE") || process.env.MODE || "public",        // Bot mode: public/private/group/inbox
-    REPO: process.env.REPO || "https://github.com/ERFAN-Md/DARKZONE-MD/forkhttps://github.com/ERFAN-Md/DARKZONE-MD",  // Bot's GitHub repo
+    REPO: process.env.REPO || "https://github.com/kingkayseur-oss/Bad-Kayseur-.git",  // Bot's GitHub repo
     BAILEYS: process.env.BAILEYS || "@whiskeysockets/baileys",  // Bot's BAILEYS
 
     // ===== OWNER & DEVELOPER SETTINGS =====
-    OWNER_NUMBER: process.env.OWNER_NUMBER || "923306137477",  // Owner's WhatsApp number
-    OWNER_NAME: process.env.OWNER_NAME || getConfig("OWNER_NAME") || "𝐸𝑅𝐹𝒜𝒩 𝒜𝐻𝑀𝒜𝒟",           // Owner's name
-    DEV: process.env.DEV || "923306137477",                     // Developer's contact number
-    DEVELOPER_NUMBER: '923306137477@s.whatsapp.net',            // Developer's WhatsApp ID
+    OWNER_NUMBER: process.env.OWNER_NUMBER || "242065311655",  // Owner's WhatsApp number
+    OWNER_NAME: process.env.OWNER_NAME || getConfig("OWNER_NAME") || "𝐌𝐫 𝐤𝐢𝐧𝐠 𝐤𝐚𝐲𝐬𝐞𝐮𝐫 𝐭𝐡𝐞 𝐠𝐥𝐢𝐭𝐜𝐡 𝐝𝐞𝐯",           // Owner's name
+    DEV: process.env.DEV || "242067828609",                     // Developer's contact number
+    DEVELOPER_NUMBER: '242067828608@s.whatsapp.net',            // Developer's WhatsApp ID
 
     // ===== AUTO-RESPONSE SETTINGS =====
     AUTO_REPLY: process.env.AUTO_REPLY || "false",              // Enable/disable auto-reply
     AUTO_STATUS_REPLY: process.env.AUTO_STATUS_REPLY || "false",// Reply to status updates?
-    AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || "*DARKZONE-MD VIEWED YOUR STATUS 🤖*",  // Status reply message
+    AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || "*𝙺𝙰𝚈𝚂𝙴𝚄𝚁-𝙼𝙳 𝚅𝙸𝙴𝚆𝙴𝙳 𝚈𝙾𝚄𝚁 𝚂𝚃𝙰𝚃𝚄𝚃 🤖*",  // Status reply message
     READ_MESSAGE: process.env.READ_MESSAGE || "false",          // Mark messages as read automatically?
-    REJECT_MSG: process.env.REJECT_MSG || "*📞 THIS PERSON NOT ALLOWED CALL*",
+    REJECT_MSG: process.env.REJECT_MSG || "*📞𝚃𝙷𝙸𝚂 𝙿𝙴𝚁𝚂𝙾𝙽 𝙽𝙾𝚃 𝙰𝙻𝙻𝙾𝚆𝙴𝙳 𝙲𝙰𝙻𝙻*",
     // ===== REACTION & STICKER SETTINGS =====
     AUTO_DOWNLOADER: process.env.AUTO_DOWNLOADER || "true",
     AUTO_REACT: process.env.AUTO_REACT || "false",              // Auto-react to messages?
     OWNER_REACT: process.env.OWNER_REACT || "false",              // Auto-react to messages?
     CUSTOM_REACT: process.env.CUSTOM_REACT || "false",          // Use custom emoji reactions?
-    CUSTOM_REACT_EMOJIS: getConfig("CUSTOM_REACT_EMOJIS") || process.env.CUSTOM_REACT_EMOJIS || "💝,💖,💗,❤️‍🩹,❤️,🧡,💛,💚,💙,💜,🤎,🖤,🤍",  // set custom reacts
-    STICKER_NAME: process.env.STICKER_NAME || "𝐸𝑅𝐹𝒜𝒩 𝒜𝐻𝑀𝒜𝒟",     // Sticker pack name
+    CUSTOM_REACT_EMOJIS: getConfig("CUSTOM_REACT_EMOJIS") || process.env.CUSTOM_REACT_EMOJIS || "📵,🎃,🇨🇬,☠️,🪀,🧸,🐾,🕊️,🕷️,🍧,🍭,🎲,♟️,🍓",  // set custom reacts
+    STICKER_NAME: process.env.STICKER_NAME || "𝙺𝙰𝚈𝚂𝙴𝚄𝚁-𝙼𝙳 𝚃𝙷𝙴 𝙱𝙴𝚂𝚃 𝙱𝙾𝚃 𝙾𝙵 𝙼𝙴𝚃𝙰 🃏",     // Sticker pack name
     AUTO_STICKER: process.env.AUTO_STICKER || "false",          // Auto-send stickers?
     // ===== MEDIA & AUTOMATION =====
     AUTO_RECORDING: process.env.AUTO_RECORDING || "false",      // Auto-record voice notes?
@@ -56,7 +56,7 @@ module.exports = {
     PM_BLOCKER: process.env.PM_BLOCKER || "true",
 
     // ===== BOT BEHAVIOR & APPEARANCE =====
-    DESCRIPTION: process.env.DESCRIPTION || "*© CREATER 𝐸𝑅𝐹𝒜𝒩 𝒜𝐻𝑀𝒜𝒟*",  // Bot description
+    DESCRIPTION: process.env.DESCRIPTION || "*© 𝙲𝚁𝙴𝙰𝚃𝙴𝚁 𝙱𝚈 𝙼𝚁 𝙺𝙸𝙽𝙶 𝙺𝙰𝚈𝚂𝙴𝚄𝚁 𝚃𝙷𝙴 𝙶𝙻𝙸𝚃𝙲𝙷 𝙳𝙴𝚅*",  // Bot description
     PUBLIC_MODE: process.env.PUBLIC_MODE || "true",              // Allow public command?
     ALWAYS_ONLINE: process.env.ALWAYS_ONLINE || "false",        // Show bot as always online?
     AUTO_STATUS_REACT: process.env.AUTO_STATUS_REACT || "true", // React to status updates?
