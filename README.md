@@ -60,9 +60,8 @@
 ### 1. 𐃁FORK THIS REPOSITORY𐃁
 
 `FORK 🍴 AND STAR ⭐ IF YOU LIKE THIS BOT`
-
-<a href="https://github.com/ERFAN-Md/DARKZONE-MD/fork">
-  <img title="DARKZONE-MD" src="https://img.shields.io/badge/FORK-DARKZONE%20MD-FF00FF?style=for-the-badge&logo=stackshare">
+  <bilolo bb">
+  <img title="KAYSEUR_MDX" src="https://files.catbox.moe/2s806n.png/badge/FORK-KAYSEUR%20MDX-FF00FF?style=for-the-badge&logo=stackshare">
 </a>
 
 ### 2. 𐃁GET SESSION ID𐃁
