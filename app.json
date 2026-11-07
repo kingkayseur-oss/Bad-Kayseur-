@@ -1,8 +1,8 @@
 {
   "name": "KAYSEUR",
-  "description": "Javascript WhatsApp bot made by 𝐸𝑅𝐹𝒜𝒩 𝒜𝐻𝑀𝒜𝒟",
-  "logo": "https://files.catbox.moe/kukevz.jpg",
-  "keywords": ["DARKZONE-MD"],
+  "description": "Javascript WhatsApp bot made by 𝙼𝚁 𝙺𝙸𝙽𝙶 𝙺𝙰𝚈𝚂𝙴𝚄𝚁 𝚃𝙷𝙴 𝙶𝙻𝙸𝚃𝙲𝙷 𝙳𝙴𝚅",
+  "logo": "https://files.catbox.moe/2s806n.png",
+  "keywords": ["KAYSEUR_MDX"],
   "success_url": "/",
 
     "stack": "container",
@@ -16,7 +16,7 @@
     "STICKER_NAME": {
       "description": "type your sticker pack name.",
       "required": false,
-      "value": "𝐸𝑅𝐹𝒜𝒩"
+      "value": "𝐊𝐀𝐘𝐒𝐄𝐔𝐑 𝐌𝐃𝐗"
     }, 
       
     "PREFIX": {
@@ -78,14 +78,14 @@
     "AUTO_STATUS_MSG": {
       "description": "Type custom message on status reply",
       "required": true,
-      "value": "*SEEN YOUR STATUS BY DARKZONE-MD ❤️*"
+      "value": "*SEEN YOUR STATUS KAYSEUR_MDX ❤️*"
    
      }, 
     
     "OWNER_NAME": {
       "description": "Type Bot Owner Name.",
       "required": false,
-      "value": "ERFAN"
+      "value": "MR KING KAYSEUR"
 }, 
 
     "OWNER_NUMBER": {
@@ -98,7 +98,7 @@
     "BOT_NAME": {
       "description": "Type here the bot name.",
       "required": false,
-      "value": "KAYSEUR"
+      "value": "KAYSEUR_MDX"
 
       }, 
 
@@ -131,13 +131,13 @@
     "MENU_IMAGE_URL": {
       "description": "add url for mention reply and menu if want.",
       "required": false,
-      "value": "https://i.ibb.co/Sw4pzTWC/IMG-20260124-WA0728.jpg"
+      "value": "https://files.catbox.moe/2s806n.png"
     },
     
      "DESCRIPTION": {
       "description": "add caption for menu and other",
       "required": false,
-      "value": "*CREATER 𝐸𝑅𝐹𝒜𝒩 𝒜𝐻𝑀𝒜𝒟*"
+      "value": "*CREATER 𝐌𝐫 𝐤𝐢𝐧𝐠 𝐤𝐚𝐲𝐬𝐞𝐮𝐫 𝐭𝐡𝐞 𝐠𝐥𝐢𝐭𝐜𝐡 𝐝𝐞𝐯*"
     },
 
       "DELETE_LINKS": {
