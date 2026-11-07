@@ -4,6 +4,7 @@
   "version": "7.0.0",
   "description": "A WhatsApp Bot Created By MR KING KAYSEUR THE GLITCH DEV",
   "main": "index.js",
+  "private": true,
   "engines": {
     "node": ">=20.x",
     "npm": ">=10.x"
