@@ -1,0 +1,290 @@
+import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import pino from 'pino';
+import { fileURLToPath } from 'url';
+
+import pkg from '@whiskeysockets/baileys';
+const {
+  default: makeWASocket,
+  useMultiFileAuthState,
+  DisconnectReason
+} = pkg;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+
+app.set('trust proxy', 1);
+app.use(express.json({ limit: '20kb' }));
+
+const PORT = process.env.PORT || 10000;
+
+// Session persistante
+const SESSION_DIR = process.env.SESSION_PATH ||
+  path.join(__dirname, 'sessions');
+
+fs.mkdirSync(SESSION_DIR, { recursive: true });
+
+let socket = null;
+let authState = null;
+let starting = null;
+let botStatus = 'starting';
+let reconnectTimer = null;
+
+const pairingAttempts = new Map();
+const logger = pino({ level: 'silent' });
+
+const sleep = ms =>
+  new Promise(resolve => setTimeout(resolve, ms));
+
+// ===============================
+// WHATSAPP CONNECTION
+// ===============================
+
+async function startWhatsApp() {
+  if (starting) return starting;
+  if (socket) return socket;
+
+  starting = (async () => {
+    try {
+      botStatus = 'connecting';
+
+      const { state, saveCreds } =
+        await useMultiFileAuthState(SESSION_DIR);
+
+      authState = state;
+
+      const sock = makeWASocket({
+        auth: state,
+        logger,
+        printQRInTerminal: false,
+        browser: ['Ubuntu', 'Chrome', '20.0.04'],
+        connectTimeoutMs: 60000,
+        defaultQueryTimeoutMs: 60000,
+        keepAliveIntervalMs: 30000,
+        markOnlineOnConnect: false,
+        syncFullHistory: false
+      });
+
+      socket = sock;
+
+      sock.ev.on('creds.update', saveCreds);
+
+      sock.ev.on('connection.update', async update => {
+        const { connection, lastDisconnect } = update;
+
+        if (connection === 'open') {
+          botStatus = 'connected';
+          console.log('KAYSEUR MDX connecté à WhatsApp');
+        }
+
+        if (connection === 'connecting') {
+          botStatus = 'connecting';
+        }
+
+        if (connection === 'close') {
+          const code =
+            lastDisconnect?.error?.output?.statusCode;
+
+          socket = null;
+
+          if (code === DisconnectReason.loggedOut) {
+            botStatus = 'logged_out';
+            console.log('Session WhatsApp déconnectée.');
+            return;
+          }
+
+          botStatus = 'reconnecting';
+          console.log('Reconnexion WhatsApp...');
+
+          if (reconnectTimer) clearTimeout(reconnectTimer);
+
+          reconnectTimer = setTimeout(() => {
+            startWhatsApp().catch(console.error);
+          }, 5000);
+        }
+      });
+
+      return sock;
+
+    } catch (error) {
+      socket = null;
+      botStatus = 'error';
+      console.error('Erreur WhatsApp:', error.message);
+      throw error;
+
+    } finally {
+      starting = null;
+    }
+  })();
+
+  return starting;
+}
+
+// ===============================
+// HOME PAGE
+// ===============================
+
+app.get('/', (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>KAYSEUR MDX</title>
+      <style>
+        body {
+          background: #080808;
+          color: white;
+          font-family: Arial;
+          text-align: center;
+          padding: 50px 15px;
+        }
+        .box {
+          max-width: 400px;
+          margin: auto;
+          padding: 25px;
+          background: #151515;
+          border: 1px solid #333;
+          border-radius: 15px;
+        }
+        h1 { color: #00aaff; }
+        a { color: #00aaff; }
+      </style>
+    </head>
+    <body>
+      <div class="box">
+        <h1>KAYSEUR MDX</h1>
+        <p>WhatsApp Pairing Server</p>
+        <p>Status: <strong>${botStatus}</strong></p>
+        <p>MR KING KAYSEUR THE GLITCH DEV</p>
+        <a href="/status">Voir le statut</a>
+      </div>
+    </body>
+    </html>
+  `);
+});
+
+// ===============================
+// HEALTH CHECK FOR RENDER
+// ===============================
+
+app.get('/health', (req, res) => {
+  res.json({
+    success: true,
+    server: 'online',
+    bot: botStatus
+  });
+});
+
+// ===============================
+// BOT STATUS
+// ===============================
+
+app.get('/status', (req, res) => {
+  res.json({
+    bot: 'KAYSEUR MDX',
+    status: botStatus,
+    connected: botStatus === 'connected',
+    pairingRequired:
+      authState ? !authState.creds.registered : true
+  });
+});
+
+// ===============================
+// WHATSAPP PAIRING CODE
+// ===============================
+
+app.post('/pair', async (req, res) => {
+  try {
+    let { phoneNumber } = req.body || {};
+
+    if (!phoneNumber) {
+      return res.status(400).json({
+        success: false,
+        message: 'Entre ton numéro WhatsApp.'
+      });
+    }
+
+    phoneNumber = String(phoneNumber).replace(/\D/g, '');
+
+    if (!/^\d{8,15}$/.test(phoneNumber)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Numéro de téléphone invalide.'
+      });
+    }
+
+    if (authState?.creds?.registered) {
+      return res.json({
+        success: true,
+        message: 'WhatsApp est déjà connecté.'
+      });
+    }
+
+    const ip = req.ip;
+    const now = Date.now();
+    const previous = pairingAttempts.get(ip);
+
+    if (previous && now - previous < 60000) {
+      return res.status(429).json({
+        success: false,
+        message: 'Attends une minute avant de demander un autre code.'
+      });
+    }
+
+    pairingAttempts.set(ip, now);
+
+    if (!socket) {
+      await startWhatsApp();
+    }
+
+    await sleep(2500);
+
+    if (!socket || !authState) {
+      throw new Error('Connexion WhatsApp indisponible.');
+    }
+
+    if (authState.creds.registered) {
+      return res.json({
+        success: true,
+        message: 'WhatsApp est déjà connecté.'
+      });
+    }
+
+    const code = await socket.requestPairingCode(phoneNumber);
+
+    console.log('Nouveau code de pairing généré.');
+
+    return res.json({
+      success: true,
+      bot: 'KAYSEUR MDX',
+      pairingCode: code,
+      message: 'Entre ce code dans WhatsApp.'
+    });
+
+  } catch (error) {
+    console.error('Pairing error:', error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: 'Impossible de générer le code.',
+      error: error.message
+    });
+  }
+});
+
+// ===============================
+// SERVER START
+// ===============================
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log('KAYSEUR MDX SERVER STARTED');
+  console.log('PORT:', PORT);
+
+  startWhatsApp().catch(error => {
+    console.error('Initialisation WhatsApp:', error.message);
+  });
+});
