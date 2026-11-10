@@ -77,7 +77,7 @@ async function startWhatsApp() {
 
         if (connection === 'open') {
           botStatus = 'connected';
-          console.log('KAYSEUR MDX connecté à WhatsApp');
+          console.log('KAYSEUR-MDX connecté à WhatsApp');
         }
 
         if (connection === 'connecting') {
